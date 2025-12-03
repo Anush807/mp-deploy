@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>AI Stream - Choose Your Role</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      text-align: center;
+      color: white;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 3rem;
+      opacity: 0.95;
+    }
+    .cards {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .card {
+      background: white;
+      color: #333;
+      padding: 2rem;
+      border-radius: 16px;
+      width: 300px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+      display: block;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    }
+    .card-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+    .card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #667eea;
+    }
+    .card p {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 0;
+    }
+    .footer {
+      margin-top: 3rem;
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎥 AI Stream</h1>
+    <p>Real-time background removal with live streaming</p>
+    
+    <div class="cards">
+      <a href="streamer.html" class="card">
+        <div class="card-icon">📹</div>
+        <h2>Streamer</h2>
+        <p>Start streaming with AI background removal</p>
+      </a>
+      
+      <a href="viewer.html" class="card">
+        <div class="card-icon">👀</div>
+        <h2>Viewer</h2>
+        <p>Watch the live stream</p>
+      </a>
+    </div>
+    
+    <div class="footer">
+      <p>Powered by MediaPipe • Built with WebRTC</p>
+    </div>
+  </div>
+</body>
+</html>

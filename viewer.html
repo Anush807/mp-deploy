@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Viewer - Watch Stream</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      background: #1a1a1a; 
+      color: #fff;
+      padding: 20px;
+      margin: 0;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h2 {
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .back-link {
+      display: inline-block;
+      color: #667eea;
+      text-decoration: none;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    #player { 
+      width: 100%; 
+      max-width: 960px;
+      background: #000; 
+      border: 2px solid #667eea;
+      border-radius: 8px;
+      display: block;
+    }
+    .controls {
+      margin: 20px 0;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    #connectBtn {
+      background: #28a745;
+      color: white;
+    }
+    #connectBtn:hover:not(:disabled) {
+      background: #218838;
+    }
+    #disconnectBtn {
+      background: #dc3545;
+      color: white;
+    }
+    #disconnectBtn:hover:not(:disabled) {
+      background: #c82333;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    #status {
+      padding: 12px;
+      background: #2a2a2a;
+      border-radius: 4px;
+      margin-top: 15px;
+      border-left: 4px solid #667eea;
+    }
+    .error { color: #ff6b6b; }
+    .success { color: #51cf66; }
+    .video-container {
+      background: #2a2a2a;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">← Back to Home</a>
+    
+    <h2>👀 Viewer - Watch Live Stream</h2>
+
+    <div class="controls">
+      <button id="connectBtn">▶️ Connect</button>
+      <button id="disconnectBtn" disabled>⏹️ Disconnect</button>
+    </div>
+
+    <div id="status">Status: <span id="statusTxt">Not connected</span></div>
+
+    <div class="video-container">
+      <video id="player" autoplay muted playsinline></video>
+    </div>
+  </div>
+
+  <script>
+    const player = document.getElementById("player");
+    const statusTxt = document.getElementById("statusTxt");
+    const connectBtn = document.getElementById("connectBtn");
+    const disconnectBtn = document.getElementById("disconnectBtn");
+
+    let ws = null;
+    let mediaSource = null;
+    let sourceBuffer = null;
+
+    // WebSocket URL - UPDATE THIS with your backend server URL
+    const WS_URL = "ws://localhost:3000"; // Change to your deployed server
+
+    function status(msg, type = "normal") {
+      statusTxt.textContent = msg;
+      statusTxt.className = type === "error" ? "error" : type === "success" ? "success" : "";
+      console.log("[VIEWER]", msg);
+    }
+
+    connectBtn.onclick = () => {
+      connectBtn.disabled = true;
+      status("⏳ Connecting...");
+
+      try {
+        ws = new WebSocket(WS_URL);
+        ws.binaryType = "arraybuffer";
+
+        ws.onopen = () => {
+          status("✅ Connected - Waiting for stream...", "success");
+          disconnectBtn.disabled = false;
+          
+          mediaSource = new MediaSource();
+          player.src = URL.createObjectURL(mediaSource);
+          
+          mediaSource.addEventListener("sourceopen", () => {
+            sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vp8"');
+          });
+        };
+
+        ws.onmessage = (event) => {
+          if (sourceBuffer && !sourceBuffer.updating) {
+            try {
+              sourceBuffer.appendBuffer(event.data);
+              status("🔴 LIVE", "success");
+            } catch (error) {
+              console.error("Buffer error:", error);
+            }
+          }
+        };
+
+        ws.onerror = () => {
+          status("❌ Connection failed - Is the server running?", "error");
+          connectBtn.disabled = false;
+          disconnectBtn.disabled = true;
+        };
+
+        ws.onclose = () => {
+          status("⏹️ Disconnected");
+          connectBtn.disabled = false;
+          disconnectBtn.disabled = true;
+        };
+      } catch (error) {
+        status("❌ Error: " + error.message, "error");
+        connectBtn.disabled = false;
+      }
+    };
+
+    disconnectBtn.onclick = () => {
+      if (ws) ws.close();
+      connectBtn.disabled = false;
+      disconnectBtn.disabled = true;
+      status("Disconnected");
+    };
+  </script>
+</body>
+</html>
