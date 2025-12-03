@@ -1,391 +1,391 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>Streamer - AI Background Removal</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      background: #1a1a1a; 
-      color: #fff;
-      padding: 20px;
-      margin: 0;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    h2 {
-      color: #fff;
-      margin-bottom: 20px;
-    }
-    .back-link {
-      display: inline-block;
-      color: #667eea;
-      text-decoration: none;
-      margin-bottom: 20px;
-      font-size: 14px;
-    }
-    .back-link:hover {
-      text-decoration: underline;
-    }
-    #canvas { 
-      border: 2px solid #667eea; 
-      background: #000; 
-      display: block; 
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-    #video { display: none; }
-    .controls { 
-      margin-bottom: 20px; 
-      display: flex; 
-      gap: 12px; 
-      flex-wrap: wrap; 
-      align-items: center;
-      background: #2a2a2a;
-      padding: 20px;
-      border-radius: 8px;
-    }
-    .controls label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #ccc;
-    }
-    input[type="text"] { 
-      padding: 8px; 
-      width: 320px;
-      border: 1px solid #444;
-      border-radius: 4px;
-      background: #333;
-      color: #fff;
-    }
-    input[type="color"] {
-      width: 50px;
-      height: 35px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    select {
-      padding: 8px;
-      border: 1px solid #444;
-      border-radius: 4px;
-      background: #333;
-      color: #fff;
-    }
-    button { 
-      padding: 10px 16px; 
-      font-size: 14px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
-    #startBtn {
-      background: #28a745;
-      color: white;
-    }
-    #startBtn:hover:not(:disabled) {
-      background: #218838;
-    }
-    #stopBtn {
-      background: #dc3545;
-      color: white;
-    }
-    #stopBtn:hover:not(:disabled) {
-      background: #c82333;
-    }
-    #loadBg {
-      background: #667eea;
-      color: white;
-    }
-    #loadBg:hover {
-      background: #5568d3;
-    }
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    #status { 
-      margin-top: 15px;
-      padding: 12px;
-      background: #2a2a2a;
-      border-radius: 4px;
-      border-left: 4px solid #667eea;
-    }
-    .error { color: #ff6b6b; }
-    .success { color: #51cf66; }
-    .warning { 
-      background: #fff3cd; 
-      border: 1px solid #ffc107; 
-      padding: 12px; 
-      margin-bottom: 15px; 
-      border-radius: 4px;
-      color: #856404;
-    }
-    .canvas-container {
-      margin-top: 20px;
-      background: #2a2a2a;
-      padding: 20px;
-      border-radius: 8px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <a href="index.html" class="back-link">← Back to Home</a>
-    
-    <h2>📹 Streamer - AI Background Removal</h2>
+  <!doctype html>
+  <html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Streamer - AI Background Removal</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      body { 
+        font-family: Arial, sans-serif; 
+        background: #1a1a1a; 
+        color: #fff;
+        padding: 20px;
+        margin: 0;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      h2 {
+        color: #fff;
+        margin-bottom: 20px;
+      }
+      .back-link {
+        display: inline-block;
+        color: #667eea;
+        text-decoration: none;
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+      .back-link:hover {
+        text-decoration: underline;
+      }
+      #canvas { 
+        border: 2px solid #667eea; 
+        background: #000; 
+        display: block; 
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+      #video { display: none; }
+      .controls { 
+        margin-bottom: 20px; 
+        display: flex; 
+        gap: 12px; 
+        flex-wrap: wrap; 
+        align-items: center;
+        background: #2a2a2a;
+        padding: 20px;
+        border-radius: 8px;
+      }
+      .controls label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #ccc;
+      }
+      input[type="text"] { 
+        padding: 8px; 
+        width: 320px;
+        border: 1px solid #444;
+        border-radius: 4px;
+        background: #333;
+        color: #fff;
+      }
+      input[type="color"] {
+        width: 50px;
+        height: 35px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      select {
+        padding: 8px;
+        border: 1px solid #444;
+        border-radius: 4px;
+        background: #333;
+        color: #fff;
+      }
+      button { 
+        padding: 10px 16px; 
+        font-size: 14px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+      #startBtn {
+        background: #28a745;
+        color: white;
+      }
+      #startBtn:hover:not(:disabled) {
+        background: #218838;
+      }
+      #stopBtn {
+        background: #dc3545;
+        color: white;
+      }
+      #stopBtn:hover:not(:disabled) {
+        background: #c82333;
+      }
+      #loadBg {
+        background: #667eea;
+        color: white;
+      }
+      #loadBg:hover {
+        background: #5568d3;
+      }
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      #status { 
+        margin-top: 15px;
+        padding: 12px;
+        background: #2a2a2a;
+        border-radius: 4px;
+        border-left: 4px solid #667eea;
+      }
+      .error { color: #ff6b6b; }
+      .success { color: #51cf66; }
+      .warning { 
+        background: #fff3cd; 
+        border: 1px solid #ffc107; 
+        padding: 12px; 
+        margin-bottom: 15px; 
+        border-radius: 4px;
+        color: #856404;
+      }
+      .canvas-container {
+        margin-top: 20px;
+        background: #2a2a2a;
+        padding: 20px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="index.html" class="back-link">← Back to Home</a>
+      
+      <h2>📹 Streamer - AI Background Removal</h2>
 
-    <div id="warningBox" class="warning" style="display:none;"></div>
+      <div id="warningBox" class="warning" style="display:none;"></div>
 
-    <div class="controls">
-      <label>
-        🖼️ Background Image:
-        <input id="bgUrl" type="text" placeholder="https://example.com/image.jpg">
-      </label>
-      <button id="loadBg">Load</button>
+      <div class="controls">
+        <label>
+          🖼️ Background Image:
+          <input id="bgUrl" type="text" placeholder="https://example.com/image.jpg">
+        </label>
+        <button id="loadBg">Load</button>
 
-      <label>
-        🎨 Color:
-        <input id="bgColor" type="color" value="#0084ff">
-      </label>
+        <label>
+          🎨 Color:
+          <input id="bgColor" type="color" value="#0084ff">
+        </label>
 
-      <label>
-        📐 Resolution:
-        <select id="resolution">
-          <option value="1280x720">1280×720</option>
-          <option value="960x540" selected>960×540</option>
-          <option value="640x360">640×360</option>
-        </select>
-      </label>
+        <label>
+          📐 Resolution:
+          <select id="resolution">
+            <option value="1280x720">1280×720</option>
+            <option value="960x540" selected>960×540</option>
+            <option value="640x360">640×360</option>
+          </select>
+        </label>
 
-      <button id="startBtn">▶️ Start</button>
-      <button id="stopBtn" disabled>⏹️ Stop</button>
+        <button id="startBtn">▶️ Start</button>
+        <button id="stopBtn" disabled>⏹️ Stop</button>
+      </div>
+
+      <div id="status">Status: <span id="statusTxt">Ready</span></div>
+
+      <div class="canvas-container">
+        <video id="video" autoplay muted playsinline></video>
+        <canvas id="canvas" width="960" height="540"></canvas>
+      </div>
     </div>
 
-    <div id="status">Status: <span id="statusTxt">Ready</span></div>
+    <script type="module">
+      import {
+        FilesetResolver,
+        ImageSegmenter
+      } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/vision_bundle.js";
 
-    <div class="canvas-container">
-      <video id="video" autoplay muted playsinline></video>
-      <canvas id="canvas" width="960" height="540"></canvas>
-    </div>
-  </div>
+      const video = document.getElementById("video");
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      const bgUrlInput = document.getElementById("bgUrl");
+      const bgColorInput = document.getElementById("bgColor");
+      const loadBgBtn = document.getElementById("loadBg");
+      const statusTxt = document.getElementById("statusTxt");
+      const startBtn = document.getElementById("startBtn");
+      const stopBtn = document.getElementById("stopBtn");
+      const resolutionSelect = document.getElementById("resolution");
+      const warningBox = document.getElementById("warningBox");
 
-  <script type="module">
-    import {
-      FilesetResolver,
-      ImageSegmenter
-    } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/vision_bundle.js";
+      let bgImg = null;
+      let segmenter = null;
+      let recorder = null;
+      let ws = null;
+      let running = false;
+      let cameraStream = null;
 
-    const video = document.getElementById("video");
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-    const bgUrlInput = document.getElementById("bgUrl");
-    const bgColorInput = document.getElementById("bgColor");
-    const loadBgBtn = document.getElementById("loadBg");
-    const statusTxt = document.getElementById("statusTxt");
-    const startBtn = document.getElementById("startBtn");
-    const stopBtn = document.getElementById("stopBtn");
-    const resolutionSelect = document.getElementById("resolution");
-    const warningBox = document.getElementById("warningBox");
+      // WebSocket URL - UPDATE THIS with your backend server URL
+      const WS_URL = "wss://mp-deploy-backend-1.onrender.com/ws"; // Change to your deployed server
 
-    let bgImg = null;
-    let segmenter = null;
-    let recorder = null;
-    let ws = null;
-    let running = false;
-    let cameraStream = null;
-
-    // WebSocket URL - UPDATE THIS with your backend server URL
-    const WS_URL = "https://mp-deploy-backend-1.onrender.com"; // Change to your deployed server
-
-    function status(msg, type = "normal") {
-      statusTxt.textContent = msg;
-      statusTxt.className = type === "error" ? "error" : type === "success" ? "success" : "";
-      console.log("[STATUS]", msg);
-    }
-
-    function showWarning(msg) {
-      warningBox.textContent = msg;
-      warningBox.style.display = "block";
-    }
-
-    function checkCameraSupport() {
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        showWarning("⚠️ Camera requires HTTPS or localhost");
-        startBtn.disabled = true;
-        return false;
+      function status(msg, type = "normal") {
+        statusTxt.textContent = msg;
+        statusTxt.className = type === "error" ? "error" : type === "success" ? "success" : "";
+        console.log("[STATUS]", msg);
       }
-      return true;
-    }
 
-    checkCameraSupport();
-
-    function setResolution(resStr) {
-      const [w, h] = resStr.split("x").map(Number);
-      canvas.width = w;
-      canvas.height = h;
-    }
-
-    setResolution(resolutionSelect.value);
-    resolutionSelect.onchange = () => setResolution(resolutionSelect.value);
-
-    loadBgBtn.onclick = () => {
-      const url = bgUrlInput.value.trim();
-      if (!url) {
-        bgImg = null;
-        status("Using solid color");
-        return;
+      function showWarning(msg) {
+        warningBox.textContent = msg;
+        warningBox.style.display = "block";
       }
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-      img.onload = () => {
-        bgImg = img;
-        status("✅ Background loaded", "success");
-      };
-      img.onerror = () => {
-        bgImg = null;
-        status("❌ Failed to load image", "error");
-      };
-      img.src = url;
-    };
 
-    bgColorInput.oninput = () => bgImg = null;
-
-    async function loadSegmenter() {
-      status("⏳ Loading AI model...");
-      try {
-        const vision = await FilesetResolver.forVisionTasks(
-          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
-        );
-        segmenter = await ImageSegmenter.createFromOptions(vision, {
-          baseOptions: {
-            modelAssetPath:
-              "https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_segmenter/float16/latest/selfie_segmenter.tflite"
-          },
-          runningMode: "video",
-          outputCategoryMask: true,
-          outputConfidenceMasks: false
-        });
-        status("✅ Model loaded", "success");
-      } catch (error) {
-        status("❌ Model load failed: " + error.message, "error");
-        throw error;
-      }
-    }
-
-    async function startCamera() {
-      try {
+      function checkCameraSupport() {
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-          throw new Error("Camera not supported");
+          showWarning("⚠️ Camera requires HTTPS or localhost");
+          startBtn.disabled = true;
+          return false;
         }
-        const [w, h] = [canvas.width, canvas.height];
-        cameraStream = await navigator.mediaDevices.getUserMedia({
-          video: { width: { ideal: w }, height: { ideal: h }, frameRate: 30 },
-          audio: false
-        });
-        video.srcObject = cameraStream;
-        await video.play();
-        status("📹 Camera started", "success");
-      } catch (error) {
-        let msg = "❌ Camera: ";
-        if (error.name === "NotAllowedError") msg += "Permission denied";
-        else if (error.name === "NotFoundError") msg += "No camera found";
-        else msg += error.message;
-        status(msg, "error");
-        throw error;
+        return true;
       }
-    }
 
-    async function renderLoop() {
-      if (!running) return;
-      try {
-        const result = segmenter.segmentForVideo(video, performance.now());
-        if (result?.categoryMask) {
-          const mask = result.categoryMask;
-          const maskData = mask.getAsUint8Array();
-          const imageData = new ImageData(mask.width, mask.height);
-          for (let i = 0; i < maskData.length; i++) {
-            const v = maskData[i];
-            const idx = i * 4;
-            imageData.data[idx] = imageData.data[idx + 1] = imageData.data[idx + 2] = v;
-            imageData.data[idx + 3] = 255;
-          }
-          const maskCanvas = document.createElement("canvas");
-          maskCanvas.width = mask.width;
-          maskCanvas.height = mask.height;
-          maskCanvas.getContext("2d").putImageData(imageData, 0, 0);
+      checkCameraSupport();
 
-          if (bgImg) {
-            ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
-          } else {
-            ctx.fillStyle = bgColorInput.value;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-          }
-          ctx.save();
-          ctx.globalCompositeOperation = "destination-out";
-          ctx.drawImage(maskCanvas, 0, 0, canvas.width, canvas.height);
-          ctx.restore();
-          ctx.save();
-          ctx.scale(-1, 1);
-          ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
-          ctx.restore();
+      function setResolution(resStr) {
+        const [w, h] = resStr.split("x").map(Number);
+        canvas.width = w;
+        canvas.height = h;
+      }
+
+      setResolution(resolutionSelect.value);
+      resolutionSelect.onchange = () => setResolution(resolutionSelect.value);
+
+      loadBgBtn.onclick = () => {
+        const url = bgUrlInput.value.trim();
+        if (!url) {
+          bgImg = null;
+          status("Using solid color");
+          return;
         }
-      } catch (error) {
-        console.error("Render error:", error);
-      }
-      requestAnimationFrame(renderLoop);
-    }
-
-    async function startStreaming() {
-      try {
-        ws = new WebSocket(WS_URL);
-        ws.binaryType = "arraybuffer";
-        ws.onopen = () => {
-          status("🔴 Streaming LIVE", "success");
-          const stream = canvas.captureStream(30);
-          recorder = new MediaRecorder(stream, { mimeType: "video/webm; codecs=vp8" });
-          recorder.ondataavailable = (e) => {
-            if (e.data.size > 0 && ws.readyState === 1) ws.send(e.data);
-          };
-          recorder.start(100);
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => {
+          bgImg = img;
+          status("✅ Background loaded", "success");
         };
-        ws.onerror = () => status("⚠️ Server unavailable (local mode)", "error");
-      } catch (error) {
-        console.warn("Streaming disabled:", error);
-        status("⚠️ No backend server (local only)");
-      }
-    }
+        img.onerror = () => {
+          bgImg = null;
+          status("❌ Failed to load image", "error");
+        };
+        img.src = url;
+      };
 
-    startBtn.onclick = async () => {
-      startBtn.disabled = true;
-      try {
-        await loadSegmenter();
-        await startCamera();
-        running = true;
-        renderLoop();
-        setTimeout(startStreaming, 500);
-        stopBtn.disabled = false;
-      } catch (error) {
+      bgColorInput.oninput = () => bgImg = null;
+
+      async function loadSegmenter() {
+        status("⏳ Loading AI model...");
+        try {
+          const vision = await FilesetResolver.forVisionTasks(
+            "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
+          );
+          segmenter = await ImageSegmenter.createFromOptions(vision, {
+            baseOptions: {
+              modelAssetPath:
+                "https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_segmenter/float16/latest/selfie_segmenter.tflite"
+            },
+            runningMode: "video",
+            outputCategoryMask: true,
+            outputConfidenceMasks: false
+          });
+          status("✅ Model loaded", "success");
+        } catch (error) {
+          status("❌ Model load failed: " + error.message, "error");
+          throw error;
+        }
+      }
+
+      async function startCamera() {
+        try {
+          if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            throw new Error("Camera not supported");
+          }
+          const [w, h] = [canvas.width, canvas.height];
+          cameraStream = await navigator.mediaDevices.getUserMedia({
+            video: { width: { ideal: w }, height: { ideal: h }, frameRate: 30 },
+            audio: false
+          });
+          video.srcObject = cameraStream;
+          await video.play();
+          status("📹 Camera started", "success");
+        } catch (error) {
+          let msg = "❌ Camera: ";
+          if (error.name === "NotAllowedError") msg += "Permission denied";
+          else if (error.name === "NotFoundError") msg += "No camera found";
+          else msg += error.message;
+          status(msg, "error");
+          throw error;
+        }
+      }
+
+      async function renderLoop() {
+        if (!running) return;
+        try {
+          const result = segmenter.segmentForVideo(video, performance.now());
+          if (result?.categoryMask) {
+            const mask = result.categoryMask;
+            const maskData = mask.getAsUint8Array();
+            const imageData = new ImageData(mask.width, mask.height);
+            for (let i = 0; i < maskData.length; i++) {
+              const v = maskData[i];
+              const idx = i * 4;
+              imageData.data[idx] = imageData.data[idx + 1] = imageData.data[idx + 2] = v;
+              imageData.data[idx + 3] = 255;
+            }
+            const maskCanvas = document.createElement("canvas");
+            maskCanvas.width = mask.width;
+            maskCanvas.height = mask.height;
+            maskCanvas.getContext("2d").putImageData(imageData, 0, 0);
+
+            if (bgImg) {
+              ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+            } else {
+              ctx.fillStyle = bgColorInput.value;
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+            ctx.save();
+            ctx.globalCompositeOperation = "destination-out";
+            ctx.drawImage(maskCanvas, 0, 0, canvas.width, canvas.height);
+            ctx.restore();
+            ctx.save();
+            ctx.scale(-1, 1);
+            ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
+            ctx.restore();
+          }
+        } catch (error) {
+          console.error("Render error:", error);
+        }
+        requestAnimationFrame(renderLoop);
+      }
+
+      async function startStreaming() {
+        try {
+          ws = new WebSocket(WS_URL);
+          ws.binaryType = "arraybuffer";
+          ws.onopen = () => {
+            status("🔴 Streaming LIVE", "success");
+            const stream = canvas.captureStream(30);
+            recorder = new MediaRecorder(stream, { mimeType: "video/webm; codecs=vp8" });
+            recorder.ondataavailable = (e) => {
+              if (e.data.size > 0 && ws.readyState === 1) ws.send(e.data);
+            };
+            recorder.start(100);
+          };
+          ws.onerror = () => status("⚠️ Server unavailable (local mode)", "error");
+        } catch (error) {
+          console.warn("Streaming disabled:", error);
+          status("⚠️ No backend server (local only)");
+        }
+      }
+
+      startBtn.onclick = async () => {
+        startBtn.disabled = true;
+        try {
+          await loadSegmenter();
+          await startCamera();
+          running = true;
+          renderLoop();
+          setTimeout(startStreaming, 500);
+          stopBtn.disabled = false;
+        } catch (error) {
+          startBtn.disabled = false;
+        }
+      };
+
+      stopBtn.onclick = () => {
+        running = false;
+        if (recorder && recorder.state === "recording") recorder.stop();
+        if (ws && ws.readyState === 1) ws.close();
+        if (cameraStream) cameraStream.getTracks().forEach(t => t.stop());
         startBtn.disabled = false;
-      }
-    };
-
-    stopBtn.onclick = () => {
-      running = false;
-      if (recorder && recorder.state === "recording") recorder.stop();
-      if (ws && ws.readyState === 1) ws.close();
-      if (cameraStream) cameraStream.getTracks().forEach(t => t.stop());
-      startBtn.disabled = false;
-      stopBtn.disabled = true;
-      status("⏹️ Stopped");
-    };
-  </script>
-</body>
-</html>
+        stopBtn.disabled = true;
+        status("⏹️ Stopped");
+      };
+    </script>
+  </body>
+  </html>
